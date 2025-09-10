@@ -21,7 +21,10 @@
     ?>
 
     <main>
-        <p> Content goes here</p>
+        <img src="images/thumbnail_image1.jpg">
+        <p> I enjoy brainstorming ideas involving web design and computer software.
+        <br /><br />
+        I'm always fascinated with computers even since I was little. My goal is to create a social media platform for everyone to have a safe place to share and post their contents on par with Facebook and Instagram without any problems. </p>
     </main>
 </div>
     <?php

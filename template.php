@@ -9,19 +9,19 @@
     <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
-<?php
-include "../includes/header.php"
-?>
+    <?php
+        include "../includes/header.php"
+    ?>
 <div id="three-column">
     <?php
-    include "../includes/navigation.php"
+        include "../includes/navigation.php"
     ?>
     <main>
         Todo: put file contents here.
     </main>
 </div>
-<?php
-include "../includes/footer.php"
-?>
+    <?php
+        include "../includes/footer.php"
+    ?>
 </body>
 </html>
