@@ -20,7 +20,7 @@
         include "includes/navigation.php"
     ?>
     <main>
-        <img src="images/natalie.jpg" alt="">
+        <img src="images/natalie.jpg" alt="picture of Natalie">
         <p> I enjoy brainstorming ideas involving web design and computer software. I'm always fascinated with computers even since I was little. My goal is to create a social media platform for everyone to have a safe place to share and post their contents on par with Facebook and Instagram without any problems. </p>
     </main>
 </div>
