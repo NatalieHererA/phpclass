@@ -40,7 +40,7 @@ header {
 main img{
     width: 250px;
     display: block;
-    margin: 0;
+    margin: auto;
 }
 
 main p{
