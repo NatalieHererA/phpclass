@@ -1,6 +1,4 @@
-<?php
-$pageName = "loops"
-?><!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +18,46 @@ $pageName = "loops"
         include "../includes/navigation.php"
     ?>
     <main>
-        Todo: put file contents here.
+        <?php
+        //$level = 4;
+
+        for ($i = 1; $i <= 6; $i++) {
+            echo "<h$i>test</h$i>";
+        }
+
+        for ($i = 6; $i >= 1; $i--) {
+            echo "<h$i>test</h$i>";
+        }
+
+        $i = 1;
+        while ($i <= 6) {
+            echo  "<h$i>test</h$i>";
+            $i++;
+        }
+
+        while ($i >= 1) {
+            echo  "<h$i>test</h$i>";
+            $i--;
+        }
+
+        $a = "100";
+        $b = "50";
+
+        //echo "<p>" . ($a + $b) . "</p>"
+
+        $firstName = "nATalIe";
+        $lastName = "hErRErA";
+
+        //$fullName = strtolower(  "$firstName $lastName");
+        $fullName = strtoupper($firstName[0])  . (str_split($firstName));
+
+        //echo $fullName;
+        echo strtolower($fullName);
+
+        //var_dump(str_split($fullName));
+
+        echo $fullName[0];
+        ?>
     </main>
 </div>
 <?php

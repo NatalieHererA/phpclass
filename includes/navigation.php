@@ -1,8 +1,8 @@
 <?php
-$page = isSet($pageName) ? $pageName : "";
-$isHome = $page == "home" ? "selected" : "";
-$isLoops = $page == "loops" ? "selected" : "";
-$isCountdown = $page == "countdown" ? "selected" : "";
+
+$isHome = $_SERVER['REQUEST_URI'] == '/';
+$isLoops = $_SERVER['REQUEST_URI'] == '/loops/';
+$isCountdown = $_SERVER['REQUEST_URI'] == '/countdown/';
 ?>
 <nav>
     <ul>
