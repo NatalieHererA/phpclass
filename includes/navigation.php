@@ -5,6 +5,8 @@ $isLoops = $_SERVER['REQUEST_URI'] == '/loops/' ? 'selected' : '';
 $isCountdown = $_SERVER['REQUEST_URI'] == '/countdown/' ? 'selected' : '';
 $isMagic8Ball = $_SERVER['REQUEST_URI'] == '/magic-eight-ball/' ? 'selected' : '';
 $isDiceGame = $_SERVER['REQUEST_URI'] == '/Dice/' ? 'selected' : '';
+$isMovieList = $_SERVER['REQUEST_URI'] == '/movielist/' ? 'selected' : '';
+$isCustomerList = $_SERVER['REQUEST_URI'] == '/customerlist/' ? 'selected' : '';
 ?>
 <nav>
     <ul>
@@ -22,6 +24,12 @@ $isDiceGame = $_SERVER['REQUEST_URI'] == '/Dice/' ? 'selected' : '';
         </li>
         <li class="<?=$isDiceGame?>">
             <a href="/Dice">Dice Game</a>
+        </li>
+        <li class="<?=$isMovieList?>">
+            <a href="/movielist">Movie List</a>
+        </li>
+        <li class="<?=$isCustomerList?>">
+            <a href="/customerlist">Customer List</a>
         </li>
     </ul>
 </nav>

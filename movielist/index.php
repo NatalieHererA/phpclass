@@ -39,14 +39,17 @@ include "../includes/header.php"
             </tr>
 
 <?php
-    $con = mysqli_connect("localhost", "dbuser", "dbdev123", "phpclass");
+
+
+    include "../includes/db.php";
+    $con = getDBConnection();
     $result = mysqli_query($con,"SELECT * FROM movielist");
 
     while($row = mysqli_fetch_array($result)) {
 
         $movieID = $row["MovieID"];
-        $movieTitle = $row["Movie Title"];
-        $movieRating = $row["Movie Rating"];
+        $movieTitle = $row["MovieTitle"];
+        $movieRating = $row["MovieRating"];
 
         echo "<tr>";
         echo "        <td>$movieID</td>";
@@ -57,6 +60,7 @@ include "../includes/header.php"
     }
 ?>
         </table>
+        <a href="addMovie.php">Add a new movie</a>
     </main>
 </div>
 <?php
