@@ -30,7 +30,7 @@ include "../includes/header.php"
     include "../includes/navigation.php"
     ?>
     <main>
-       <h2>My Movie List</h2>
+        <h2>My Movie List</h2>
         <table>
             <tr>
                 <th>ID</th>
@@ -39,25 +39,23 @@ include "../includes/header.php"
             </tr>
 
 <?php
+        include "../includes/db.php";
+        $con = getDBConnection();
+        $result = mysqli_query($con,"SELECT * FROM movielist");
 
+        while($row = mysqli_fetch_array($result)) {
 
-    include "../includes/db.php";
-    $con = getDBConnection();
-    $result = mysqli_query($con,"SELECT * FROM movielist");
+            $movieID = $row["MovieID"];
+            $movieTitle = $row["MovieTitle"];
+            $movieRating = $row["MovieRating"];
 
-    while($row = mysqli_fetch_array($result)) {
+            echo "<tr>";
+            echo "<td><a href='updateMovie.php?id=$movieID'>$movieID</a></td>";
+            echo "<td><a href='updateMovie.php?id=$movieID'>$movieTitle</a></td>";
+            echo "<td>$movieRating</td>";
+            echo "</tr>";
 
-        $movieID = $row["MovieID"];
-        $movieTitle = $row["MovieTitle"];
-        $movieRating = $row["MovieRating"];
-
-        echo "<tr>";
-        echo "<td><a href='updateMovie.php?id=$movieID'>$movieID</a></td>";
-        echo "<td><a href='updateMovie.php?id=$movieID'>$movieTitle</a></td>";
-        echo "<td>$movieRating</td>";
-        echo "</tr>";
-
-    }
+        }
 ?>
         </table>
         <a href="addMovie.php">Add a new movie</a>

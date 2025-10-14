@@ -45,9 +45,7 @@ include "../includes/header.php"
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Password</th>
-
             </tr>
-
  <?php
 
             include "../includes/db.php";
@@ -68,8 +66,8 @@ include "../includes/header.php"
                 $password = $row["Password"];
 
                 echo "<tr>";
-                echo "        <td>$customerID</td>";
-                echo "        <td>$firstName</td>";
+                echo "        <td><a href='updateCustomer.php?id=$customerID'>$customerID</a></td>";
+                echo "        <td><a href='updateCustomer.php?id=$customerID'>$firstName</a></td>";
                 echo "        <td>$lastName</td>";
                 echo "        <td>$address</td>";
                 echo "        <td>$city</td>";
@@ -79,11 +77,11 @@ include "../includes/header.php"
                 echo "        <td>$email</td>";
                 echo "        <td>$password</td>";
                 echo "</tr>";
-    }
+            }
  ?>
         </table>
         <a href="addCustomer.php">Add a new customer</a>
-    </main>
+    </main>Ry
 </div>
 <?php
 include "../includes/footer.php"

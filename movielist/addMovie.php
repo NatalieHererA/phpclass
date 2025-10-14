@@ -1,6 +1,6 @@
 <?php
 
-    if (!empty($_GET["txtTitle"]) && !empty($_GET["txtRating"])) {
+    if(!empty($_GET["txtTitle"]) && !empty($_GET["txtRating"])) {
 
         $txtTitle = $_GET["txtTitle"];
         $txtRating = $_GET["txtRating"];
@@ -16,8 +16,8 @@
             mysqli_stmt_execute($stmt);
 
             header("Location:index.php");
-        }
-        catch (mysqli_sql_exception $ex){
+
+        } catch (mysqli_sql_exception $ex){
             echo $ex;
         }
     }
@@ -96,7 +96,6 @@
                 <div class="grid-footer">
                     <input type="submit" value="Add Movie">
                 </div>
-
             </div>
         </form>
     </main>

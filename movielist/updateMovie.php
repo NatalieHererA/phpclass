@@ -1,4 +1,5 @@
 <?php
+
     if(!empty($_GET["txtTitle"]) && !empty($_GET["txtRating"])) {
 
         $txtTitle = $_GET["txtTitle"];
