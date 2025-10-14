@@ -2,10 +2,8 @@
 
     if (!empty($_GET["txtCustomerID"]) && !empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])){
 
-        include '../includes/db.php';
-        $con = getDBConnection();
 
-        $txtID = $_GET["txtID"];
+        $txtCustomerID = $_GET["txtCustomerID"];
         $txtFirstName = $_GET["txtFirstName"];
         $txtLastName = $_GET["txtLastName"];
         $txtAddress = $_GET["txtAddress"];
@@ -17,14 +15,17 @@
         $txtPassword = $_GET["txtPassword"];
 
         try {
-            $query = "INSERT INTO customerlist (CustomerID, FirstName, LastName, Address, City, State, Zip, Phone, Email, Password) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            include "../includes/db.php";
+            $con = getDBConnection();
+
+            $query= "INSERT INTO customerlist (CustomerID, FirstName, LastName, Address, City, State, Zip, Phone, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ss",$txtCustomerID,$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
+            mysqli_stmt_bind_param($stmt, "ssss",$txtCustomerID,$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
             mysqli_stmt_execute($stmt);
 
             header("Location:index.php");
 
-        } catch (mysqli_sql_exception $ex) {
+        } catch (mysqli_sql_exception $ex){
             echo $ex;
         }
     }
@@ -194,7 +195,6 @@ include "../includes/header.php"
                 <div class="grid-footer">
                     <input type="submit" value="Add New Customer">
                 </div>
-
             </div>
         </form>
     </main>

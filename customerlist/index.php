@@ -56,7 +56,7 @@ include "../includes/header.php"
 
             while($row = mysqli_fetch_array($result)) {
 
-                $ID = $row["ID"];
+                $customerID = $row["CustomerID"];
                 $firstName = $row["FirstName"];
                 $lastName = $row["LastName"];
                 $address = $row["Address"];
@@ -68,7 +68,7 @@ include "../includes/header.php"
                 $password = $row["Password"];
 
                 echo "<tr>";
-                echo "        <td>$ID</td>";
+                echo "        <td>$customerID</td>";
                 echo "        <td>$firstName</td>";
                 echo "        <td>$lastName</td>";
                 echo "        <td>$address</td>";

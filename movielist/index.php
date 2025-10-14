@@ -52,9 +52,9 @@ include "../includes/header.php"
         $movieRating = $row["MovieRating"];
 
         echo "<tr>";
-        echo "        <td>$movieID</td>";
-        echo "        <td>$movieTitle</td>";
-        echo "        <td>$movieRating</td>";
+        echo "<td><a href='updateMovie.php?id=$movieID'>$movieID</a></td>";
+        echo "<td><a href='updateMovie.php?id=$movieID'>$movieTitle</a></td>";
+        echo "<td>$movieRating</td>";
         echo "</tr>";
 
     }
