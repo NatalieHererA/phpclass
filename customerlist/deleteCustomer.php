@@ -10,4 +10,4 @@ if(isset($_GET["id"])){
     mysqli_stmt_bind_param($stmt, "s", $id);
     mysqli_stmt_execute($stmt);
 }
-header ("Location:index.php");
+header ("Location: index.php");

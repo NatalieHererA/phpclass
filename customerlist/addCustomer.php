@@ -2,6 +2,7 @@
 
     if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])){
 
+        echo 1;
         $txtFirstName = $_GET["txtFirstName"];
         $txtLastName = $_GET["txtLastName"];
         $txtAddress = $_GET["txtAddress"];
@@ -13,18 +14,20 @@
         $txtPassword = $_GET["txtPassword"];
 
         try {
+            echo 2;
             include "../includes/db.php";
             $con = getDBConnection();
 
+            echo 3;
             $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
+            mysqli_stmt_bind_param($stmt, "sssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
             mysqli_stmt_execute($stmt);
 
-            header("Location:index.php");
+            header("Location: index.php");
 
         } catch (mysqli_sql_exception $ex){
-            echo $ex;
+            $errorMessage = $ex;
         }
     }
 

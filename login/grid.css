@@ -1,0 +1,119 @@
+
+/* css reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* base styles */
+body {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    line-height: 1.2rem;
+}
+
+header {
+    color: #ffffff;
+    background-color: #9586ff;
+    width: 100%;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#three-column {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#three-column > * {
+    padding: 10px;
+    flex-grow: 1;
+}
+
+#three-column > main {
+    flex-grow: 4;
+}
+
+main img{
+    width: 250px;
+    display: block;
+    margin: auto;
+}
+
+main p{
+    margin-top: 30px;
+    text-indent: 20px;
+}
+
+footer {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+nav > ul {
+    list-style-type: none;
+
+    li {
+        padding: 5px;
+        background-color: #dddddd;
+        border-radius: 4px;
+        text-align: center;
+        margin: .5rem 0;
+
+
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &:hover {
+            background-color: #bbbbbb;
+            cursor: pointer;
+        }
+
+        &.selected {
+            border: 1px solid #000000;
+        }
+    }
+}
+
+a {
+    width: 100%;
+    display: inline-block;
+    text-decoration: 100%;
+    color: #000000;
+}
+
+img.di {
+    width: 6%;
+}
+
+.error p {
+    color: red;
+}
+
+.grid-header { grid-area: grid-header; }
+
+.username{grid-area: username; }
+.password { grid-area: password; }
+.email { grid-area: email; }
+.role { grid-area: role; }
+
+.username-input {grid-area: username-input; }
+.password-input { grid-area: password-input; }
+.email-input { grid-area: email-input; }
+.role-input { grid-area: role-input; }
+
+.error-message {grid-area: error-message; }
+.grid-footer { grid-area: grid-footer; }
+
+.grid-container {
+    display: grid;
+    border:  1px solid black;
+}

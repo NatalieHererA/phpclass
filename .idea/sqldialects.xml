@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/customerlist/deleteCustomer.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/customerlist/index.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/customerlist/updateCustomer.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/login/admin.php" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/login/index.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/movielist/addMovie.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/movielist/deleteMovie.php" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/movielist/index.php" dialect="GenericSQL" />

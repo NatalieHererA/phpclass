@@ -1,39 +1,42 @@
 <?php
 
-    if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])){
+    if(!isset($_GET["id"])) {
+        header ("Location: index.php");
+    }
 
-        $txtFirstName = $_GET["txtFirstName"];
-        $txtLastName = $_GET["txtLastName"];
-        $txtAddress = $_GET["txtAddress"];
-        $txtCity = $_GET["txtCity"];
-        $txtState = $_GET["txtState"];
-        $txtZip = $_GET["txtZip"];
-        $txtPhone = $_GET["txtPhone"];
-        $txtEmail = $_GET["txtEmail"];
-        $txtPassword = $_GET["txtPassword"];
-        $txtCustomerID = $_GET["txtCustomerID"];
+    $id = $_GET["id"];
+
+    include "../includes/db.php";
+    $con = getDBConnection();
+
+    if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"]) && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) && !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"])){
+
+        $txtFirstName = $_POST["txtFirstName"];
+        $txtLastName = $_POST["txtLastName"];
+        $txtAddress = $_POST["txtAddress"];
+        $txtCity = $_POST["txtCity"];
+        $txtState = $_POST["txtState"];
+        $txtZip = $_POST["txtZip"];
+        $txtPhone = $_POST["txtPhone"];
+        $txtEmail = $_POST["txtEmail"];
+        $txtPassword = $_POST["txtPassword"];
+
 
         try {
-            include "../includes/db.php";
-            $con = getDBConnection();
-
             $query = "update customerlist set FirstName = ?, LastName = ?, Address = ?, City = ?, State = ?, Zip = ?, Phone = ?, Email = ?, Password = ? where CustomerID = ?";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $txtCustomerID);
+            mysqli_stmt_bind_param($stmt, "ssssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $id);
             mysqli_stmt_execute($stmt);
 
-            header("Location:index.php");
+            header("Location: index.php");
 
+            echo $query;
         } catch (mysqli_sql_exception $ex){
             echo $ex;
         }
     }
 
-if(isset($_GET["id"])){
-    $id = $_GET["id"];
 
-    include "../includes/db.php";
-    $con = getDBConnection();
 
     $query = "select * FROM customerlist where CustomerID = ?";
     $stmt = mysqli_prepare($con, $query);
@@ -52,9 +55,6 @@ if(isset($_GET["id"])){
     $txtEmail = $row["Email"];
     $txtPassword = $row["Password"];
 
-}else{
-    header ("Location:index.php");
-}
 
 ?><!doctype html>
 <html lang="en">
@@ -66,7 +66,7 @@ if(isset($_GET["id"])){
     <title>Natalie's Website</title>
 
     <script type="text/javascript">
-        function DeleteCustomer(firstname, lastname, address, city, state, zip, phone, email, password, id){
+        function DeleteCustomer(id){
             if (confirm("Are you sure you want to DELETE this customer from the list?")){
                 document.location.href = 'deleteCustomer.php?id= ' + id;
             }
@@ -135,7 +135,7 @@ include "../includes/header.php"
     include "../includes/navigation.php"
     ?>
     <main>
-        <form method="get">
+        <form method="post">
             <div class="grid-container">
 
                 <div class="grid-header">
@@ -206,7 +206,7 @@ include "../includes/header.php"
                 </div>
 
                 <div class="grid-footer">
-                    <input type="submit" value="Update Customer"> <input type="button" value="Delete Customer" onclick = "DeleteCustomer ('<?=$txtFirstName?>','<?=$txtLastName?>', '<?=$txtCustomerID?>')" />
+                    <input type="submit" value="Update Customer"> <input type="button" value="Delete Customer" onclick = "DeleteCustomer('<?=$id?>')" />
                 </div>
             </div>
         </form>

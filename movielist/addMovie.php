@@ -5,7 +5,6 @@
         $txtTitle = $_GET["txtTitle"];
         $txtRating = $_GET["txtRating"];
 
-
         try {
             include "../includes/db.php";
             $con = getDBConnection();
@@ -18,7 +17,7 @@
             header("Location:index.php");
 
         } catch (mysqli_sql_exception $ex){
-            echo $ex;
+            $errorMessage = $ex;
         }
     }
 
