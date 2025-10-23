@@ -3,8 +3,7 @@
 
     $ADMIN_ID = 3;
     if (isset($_SESSION['userID']) || $_SESSION['roleID'] != $ADMIN_ID) {
-        header( "location: /login");
-
+        header( "location: /login.php");
     }
 
 ?><!doctype html>
@@ -16,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Natalie's Website</title>
     <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="grid.css">
 </head>
 <body>
 <?php

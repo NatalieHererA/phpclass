@@ -1,51 +1,50 @@
 <?php
-session_start();
+    session_start();
 
-$errorMessage = "";
+    $errorMessage = "";
 
-$formSubmitted = isset($_POST["hidden"]);
+    $formSubmitted = isset($_POST["hidden"]);
 
-$txtUsername = $_POST["txtUsername"];
-$txtEmail = $_POST["txtEmail"];
-$txtPassword = $_POST["txtPassword"];
-$txtPassword2 = $_POST["txtPassword2"];
-$cboRole = $_POST["cboRole"];
+    $txtUsername = $_POST["txtUsername"];
+    $txtEmail = $_POST["txtEmail"];
+    $txtPassword = $_POST["txtPassword"];
+    $txtPassword2 = $_POST["txtPassword2"];
+    $cboRole = $_POST["cboRole"];
 
-$ADMIN_ID = 3;
-if(!isset($_SESSION["userID"]) || $_SESSION['roleID'] != $ADMIN_ID) {
-    header("Location: /login");
-}
-
-if ($formSubmitted) {
-    if($txtPassword != $txtPassword2) {
-        $errorMessage = "Your password must match verify password";
+    $ADMIN_ID = 3;
+    if(!isset($_SESSION["userID"]) || $_SESSION['roleID'] != $ADMIN_ID) {
+        header("Location: index.php");
     }
-// todo: check username, email, etc.. (separate else-if's)
-    else {
 
-        include "../includes/db.php";
-        $con = getDBConnection();
+    if ($formSubmitted) {
+        if($txtPassword != $txtPassword2) {
+            $errorMessage = "Your password must match verify password";
+        }
+        else {
 
-        try {
-            $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey, roleID) VALUES (?, ?, ?, 'nnnnn', ?);";
+            include "../includes/db.php";
+            $con = getDBConnection();
 
-            $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ssss", $txtUsername, $txtEmail, $txtPassword, $cboRole);
-            mysqli_stmt_execute($stmt);
+            try {
+                $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey, roleID) VALUES (?, ?, ?, 'nnnnn', ?);";
 
-            $txtUsername = "";
-            $txtEmail = "";
-            $txtPassword = "";
-            $txtPassword2 = "";
-            $cboRole = "";
+                $stmt = mysqli_prepare($con, $query);
+                mysqli_stmt_bind_param($stmt, "ssss", $txtUsername, $txtEmail, $txtPassword, $cboRole);
+                mysqli_stmt_execute($stmt);
 
-            header("Location: index.php");
+                $txtUsername = "";
+                $txtEmail = "";
+                $txtPassword = "";
+                $txtPassword2 = "";
+                $cboRole = "";
 
-        } catch (mysqli_sql_exception $ex) {
-            $errorMessage = $ex;
+                header("Location: index.php");
+
+            } catch (mysqli_sql_exception $ex) {
+                $errorMessage = $ex;
+            }
         }
     }
-}
 ?>
 
 <!doctype html>
@@ -57,7 +56,6 @@ if ($formSubmitted) {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Natalie's Website</title>
     <link rel="stylesheet" href="/css/base.css">
-
 </head>
 <body>
 <?php

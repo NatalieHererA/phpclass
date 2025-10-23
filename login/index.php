@@ -1,39 +1,38 @@
 <?php
-session_start();
+    session_start();
 
-$errorMessage = "";
+    $errorMessage = "";
+    $txtUsername = $_POST["txtUsername"];
+    $txtPassword = $_POST["txtPassword"];
 
-$txtUsername = $_POST["txtUsername"];
-$txtPassword = $_POST["txtPassword"];
+    include "../includes/db.php";
+    $con = getDBConnection();
 
-include "../includes/db.php";
-$con = getDBConnection();
+        try {
+            $query = "SELECT * FROM members WHERE memberName = ? AND memberPassword = ?";
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_bind_param($stmt, "ss", $txtUsername, $txtPassword);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
 
-try {
-    $query = "SELECT * FROM members WHERE memberName = ? AND memberPassword = ?";
-    $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "ss", $txtUsername, $txtPassword);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_array($result);
+            $_SESSION["userID"] = $row["memberID"];
+            $_SESSION["roleID"] = $row["roleID"];
 
-    $row = mysqli_fetch_array($result);
-    $_SESSION["userID"] = $row["memberID"];
-    $_SESSION["roleID"] = $row["roleID"];
+            if ($row['roleID'] == 3) {
+                header("location: admin.php");
 
-    if ($row['roleID'] == 3) {
-        header("location: admin.php");
-    } else if ($row ['roleID'] == 1) {
-        header("location: member.php");
-    } else {
-        $errorMessage = "There was an error";
-    }
+            }else if ($row ['roleID'] == 1) {
+                header("location: member.php");
+            }
+            else {
+                $errorMessage = "There was an error";
+            }
 
-} catch (mysqli_sql_exception $ex){
-    $errorMessage = $ex;
-}
-
+        } catch (mysqli_sql_exception $ex){
+            $errorMessage = $ex;
+        }
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -49,8 +48,6 @@ try {
             grid-template:
             "grid-header grid-header"
             "username username-input"
-            "email email-input"
-            "password password-input"
             "password password-input"
             "error-message error-message"
             "grid-footer grid-footer";
@@ -66,6 +63,9 @@ include "../includes/header.php"
     include "../includes/navigation.php"
     ?>
     <main>
+
+        <h3 id="err"><?=$errorMessage?></h3>
+
         <form method="post">
             <div class="grid-container">
                 <div class="grid-header">
