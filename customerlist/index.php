@@ -45,9 +45,9 @@ include "../includes/header.php"
                 <th>Phone</th>
                 <th>Email</th>
                 <th>Password</th>
+                <th>Member Key</th>
             </tr>
  <?php
-
             include "../includes/db.php";
             $con = getDBConnection();
             $result = mysqli_query($con,"SELECT * FROM customerlist");
@@ -64,6 +64,7 @@ include "../includes/header.php"
                 $phone = $row["Phone"];
                 $email = $row["Email"];
                 $password = $row["Password"];
+                $memberKey = $row["memberKey"];
 
                 echo "<tr>";
                 echo "        <td><a href='updateCustomer.php?id=$customerID'>$customerID</a></td>";
@@ -76,12 +77,13 @@ include "../includes/header.php"
                 echo "        <td>$phone</td>";
                 echo "        <td>$email</td>";
                 echo "        <td>$password</td>";
+                echo "        <td>$memberKey</td>";
                 echo "</tr>";
             }
  ?>
         </table>
         <a href="addCustomer.php">Add a new customer</a>
-    </main>Ry
+    </main>
 </div>
 <?php
 include "../includes/footer.php"

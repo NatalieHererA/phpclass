@@ -1,32 +1,34 @@
 <?php
 
-    if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])){
+    $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 
-        echo 1;
-        $txtFirstName = $_GET["txtFirstName"];
-        $txtLastName = $_GET["txtLastName"];
-        $txtAddress = $_GET["txtAddress"];
-        $txtCity = $_GET["txtCity"];
-        $txtState = $_GET["txtState"];
-        $txtZip = $_GET["txtZip"];
-        $txtPhone = $_GET["txtPhone"];
-        $txtEmail = $_GET["txtEmail"];
-        $txtPassword = $_GET["txtPassword"];
+    $txtFirstName = $_GET["txtFirstName"];
+    $txtLastName = $_GET["txtLastName"];
+    $txtAddress = $_GET["txtAddress"];
+    $txtCity = $_GET["txtCity"];
+    $txtState = $_GET["txtState"];
+    $txtZip = $_GET["txtZip"];
+    $txtPhone = $_GET["txtPhone"];
+    $txtEmail = $_GET["txtEmail"];
+    $txtPassword = $_GET["txtPassword"];
+    $txtMemberKey = $_GET["txtMemberKey"];
+
+
+    if (!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"] && !empty($_GET["txtMember"]))) {
 
         try {
-            echo 2;
             include "../includes/db.php";
             $con = getDBConnection();
 
-            echo 3;
-            $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password, memberKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "sssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
+            mysqli_stmt_bind_param($stmt, "ssssssssss", $txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $memberKey);
             mysqli_stmt_execute($stmt);
 
-            header("Location: index.php");
-
-        } catch (mysqli_sql_exception $ex){
+            $hashedPassword = $row["memberPassword"];
+            $memberKey = $row["memberKey"];
+        }
+        catch (mysqli_sql_exception $ex) {
             $errorMessage = $ex;
         }
     }
@@ -76,6 +78,7 @@
                 "phone phone-input"
                 "email email-input"
                 "password password-input"
+                "memberKey memberKey-input"
                 "grid-footer grid-footer"
         ;
             border: 1px solid black;
@@ -170,6 +173,13 @@
                 </div>
                 <div class="password-input">
                     <input type="text" name="txtPassword" id="txtPassword">
+                </div>
+
+                <div class="member">
+                    <label for="txtMemberKey">Member Key</label>
+                </div>
+                <div class="member-input">
+                    <input type="text" name="txtMemberKey" id="txtMemberKey">
                 </div>
 
                 <div class="grid-footer">

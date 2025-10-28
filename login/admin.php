@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+
     $errorMessage = "";
 
     $formSubmitted = isset($_POST["hidden"]);
@@ -26,10 +28,11 @@
             $con = getDBConnection();
 
             try {
-                $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey, roleID) VALUES (?, ?, ?, 'nnnnn', ?);";
+                $hashedPassword =md5($txtPassword . $memberKey);
+                $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey, roleID) VALUES (?, ?, ?, ?, ?);";
 
                 $stmt = mysqli_prepare($con, $query);
-                mysqli_stmt_bind_param($stmt, "ssss", $txtUsername, $txtEmail, $txtPassword, $cboRole);
+                mysqli_stmt_bind_param($stmt, "sssss", $txtUsername, $txtEmail, $hashedPassword, $memberKey, $cboRole);
                 mysqli_stmt_execute($stmt);
 
                 $txtUsername = "";
