@@ -1,59 +1,58 @@
 <?php
 
-    if(!isset($_GET["id"])) {
-        header ("Location: index.php");
-    }
+    if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])){
 
-    $id = $_GET["id"];
-
-    include "../includes/db.php";
-    $con = getDBConnection();
-
-    if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"]) && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) && !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"])){
-
-        $txtFirstName = $_POST["txtFirstName"];
-        $txtLastName = $_POST["txtLastName"];
-        $txtAddress = $_POST["txtAddress"];
-        $txtCity = $_POST["txtCity"];
-        $txtState = $_POST["txtState"];
-        $txtZip = $_POST["txtZip"];
-        $txtPhone = $_POST["txtPhone"];
-        $txtEmail = $_POST["txtEmail"];
-        $txtPassword = $_POST["txtPassword"];
-
+        $txtFirstName = $_GET["txtFirstName"];
+        $txtLastName = $_GET["txtLastName"];
+        $txtAddress = $_GET["txtAddress"];
+        $txtCity = $_GET["txtCity"];
+        $txtState = $_GET["txtState"];
+        $txtZip = $_GET["txtZip"];
+        $txtPhone = $_GET["txtPhone"];
+        $txtEmail = $_GET["txtEmail"];
+        $txtPassword = $_GET["txtPassword"];
 
         try {
+            include "../includes/db.php";
+            $con = getDBConnection();
+
             $query = "update customerlist set FirstName = ?, LastName = ?, Address = ?, City = ?, State = ?, Zip = ?, Phone = ?, Email = ?, Password = ? where CustomerID = ?";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ssssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $id);
+            mysqli_stmt_bind_param($stmt, "sssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
             mysqli_stmt_execute($stmt);
 
             header("Location: index.php");
-
-            echo $query;
-        } catch (mysqli_sql_exception $ex){
+        }
+        catch (mysqli_sql_exception $ex){
             echo $ex;
         }
     }
+    if(isset($_GET["id"])){
+        $id = $_GET["id"];
 
+        include "../includes/db.php";
+        $con = getDBConnection();
 
+        $query = "select * FROM customerlist where CustomerID = ?";
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $row = mysqli_fetch_array($result);
 
-    $query = "select * FROM customerlist where CustomerID = ?";
-    $stmt = mysqli_prepare($con, $query);
-    mysqli_stmt_bind_param($stmt, "s", $id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $row = mysqli_fetch_array($result);
+        $txtFirstName = $row["FirstName"];
+        $txtLastName = $row["LastName"];
+        $txtAddress = $row["Address"];
+        $txtCity = $row["City"];
+        $txtState = $row["State"];
+        $txtZip = $row["Zip"];
+        $txtPhone = $row["Phone"];
+        $txtEmail = $row["Email"];
+        $txtPassword = $row["Password"];
 
-    $txtFirstName = $row["FirstName"];
-    $txtLastName = $row["LastName"];
-    $txtAddress = $row["Address"];
-    $txtCity = $row["City"];
-    $txtState = $row["State"];
-    $txtZip = $row["Zip"];
-    $txtPhone = $row["Phone"];
-    $txtEmail = $row["Email"];
-    $txtPassword = $row["Password"];
+    } else {
+        header("Location: index.php");
+    }
 
 
 ?><!doctype html>

@@ -2,36 +2,59 @@
 
     $memberKey = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
 
-    $txtFirstName = $_GET["txtFirstName"];
-    $txtLastName = $_GET["txtLastName"];
-    $txtAddress = $_GET["txtAddress"];
-    $txtCity = $_GET["txtCity"];
-    $txtState = $_GET["txtState"];
-    $txtZip = $_GET["txtZip"];
-    $txtPhone = $_GET["txtPhone"];
-    $txtEmail = $_GET["txtEmail"];
-    $txtPassword = $_GET["txtPassword"];
-    $txtMemberKey = $_GET["txtMemberKey"];
+    $errorMessage = "";
 
+    $formSubmitted = isset($_POST["hidden"]);
 
-    if (!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"] && !empty($_GET["txtMember"]))) {
+    if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])) {
+
+        $txtFirstName = $_GET["txtFirstName"];
+        $txtLastName = $_GET["txtLastName"];
+        $txtAddress = $_GET["txtAddress"];
+        $txtCity = $_GET["txtCity"];
+        $txtState = $_GET["txtState"];
+        $txtZip = $_GET["txtZip"];
+        $txtPhone = $_GET["txtPhone"];
+        $txtEmail = $_GET["txtEmail"];
+        $txtPassword = $_GET["txtPassword"];
+
+        $hashedPassword = $row["memberPassword"];
+        $memberKey = $row["memberKey"];
 
         try {
             include "../includes/db.php";
             $con = getDBConnection();
 
-            $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password, memberKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password, memberKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($con, $query);
             mysqli_stmt_bind_param($stmt, "ssssssssss", $txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $memberKey);
             mysqli_stmt_execute($stmt);
 
-            $hashedPassword = $row["memberPassword"];
-            $memberKey = $row["memberKey"];
-        }
-        catch (mysqli_sql_exception $ex) {
+            header("Location:index.php");
+
+            if ($row != null) {
+
+                if (md5($txtPassword . $memberKey) == $hashedPassword) {
+                    // password matched!
+                    $_SESSION["userID"] = $row["memberID"];
+                    $_SESSION["roleID"] = $row["roleID"];
+
+                    if ($row['roleID'] == 3) {
+                        header("location: admin.php");
+
+                    }else if ($row ['roleID'] == 1) {
+                        header("location: member.php");
+                    }
+
+                } else {
+                    $errorMessage = "1Email or password was incorrect";
+                }
+            }
+        } catch (mysqli_sql_exception $ex){
             $errorMessage = $ex;
         }
     }
+
 
 ?><!doctype html>
 <html lang="en">
@@ -78,7 +101,6 @@
                 "phone phone-input"
                 "email email-input"
                 "password password-input"
-                "memberKey memberKey-input"
                 "grid-footer grid-footer"
         ;
             border: 1px solid black;
@@ -173,13 +195,6 @@
                 </div>
                 <div class="password-input">
                     <input type="text" name="txtPassword" id="txtPassword">
-                </div>
-
-                <div class="member">
-                    <label for="txtMemberKey">Member Key</label>
-                </div>
-                <div class="member-input">
-                    <input type="text" name="txtMemberKey" id="txtMemberKey">
                 </div>
 
                 <div class="grid-footer">
