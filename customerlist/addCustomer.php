@@ -6,26 +6,24 @@
 
     $formSubmitted = isset($_POST["hidden"]);
 
-    if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])) {
+    if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"]) && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) && !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"]) && !empty($_POST["txtMemberKey"])) {
 
-        $txtFirstName = $_GET["txtFirstName"];
-        $txtLastName = $_GET["txtLastName"];
-        $txtAddress = $_GET["txtAddress"];
-        $txtCity = $_GET["txtCity"];
-        $txtState = $_GET["txtState"];
-        $txtZip = $_GET["txtZip"];
-        $txtPhone = $_GET["txtPhone"];
-        $txtEmail = $_GET["txtEmail"];
-        $txtPassword = $_GET["txtPassword"];
-
-        $hashedPassword = $row["memberPassword"];
-        $memberKey = $row["memberKey"];
+        $txtFirstName = $_POST["txtFirstName"];
+        $txtLastName = $_POST["txtLastName"];
+        $txtAddress = $_POST["txtAddress"];
+        $txtCity = $_POST["txtCity"];
+        $txtState = $_POST["txtState"];
+        $txtZip = $_POST["txtZip"];
+        $txtPhone = $_POST["txtPhone"];
+        $txtEmail = $_POST["txtEmail"];
+        $txtPassword = $_POST["txtPassword"];
+        $txtMemberKey = $_POST["txtMemberKey"];
 
         try {
             include "../includes/db.php";
             $con = getDBConnection();
 
-            $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password, memberKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password, memberKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($con, $query);
             mysqli_stmt_bind_param($stmt, "ssssssssss", $txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $memberKey);
             mysqli_stmt_execute($stmt);
@@ -33,29 +31,29 @@
             header("Location:index.php");
 
             if ($row != null) {
+                $hashedPassword = $row["memberPassword"];
+                $memberKey = $row["memberKey"];
 
                 if (md5($txtPassword . $memberKey) == $hashedPassword) {
                     // password matched!
-                    $_SESSION["userID"] = $row["memberID"];
-                    $_SESSION["roleID"] = $row["roleID"];
+                    $_SESSION["memberID"] = $row["memberID"];
+                    $_SESSION["CustomerID"] = $row["CustomerID"];
 
-                    if ($row['roleID'] == 3) {
-                        header("location: admin.php");
+                    if ($row['CustomerID'] == 3) {
+                        header("location: index.php");
 
-                    }else if ($row ['roleID'] == 1) {
-                        header("location: member.php");
+                    }else if ($row ['CustomerID'] == 1) {
+                        header("location: index.php");
                     }
 
                 } else {
-                    $errorMessage = "1Email or password was incorrect";
+                    $errorMessage = "Password was incorrect";
                 }
             }
         } catch (mysqli_sql_exception $ex){
             $errorMessage = $ex;
         }
     }
-
-
 ?><!doctype html>
 <html lang="en">
 <head>
@@ -101,7 +99,9 @@
                 "phone phone-input"
                 "email email-input"
                 "password password-input"
+                "memberKey memberKey-input"
                 "grid-footer grid-footer"
+
         ;
             border: 1px solid black;
 
@@ -127,7 +127,7 @@
         include "../includes/navigation.php"
     ?>
     <main>
-        <form method="get">
+        <form method="post">
             <div class="grid-container">
 
                 <div class="grid-header">

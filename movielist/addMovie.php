@@ -14,13 +14,12 @@
             mysqli_stmt_bind_param($stmt, "ss", $txtTitle, $txtRating);
             mysqli_stmt_execute($stmt);
 
-            header("Location:index.php");
+            header("Location: index.php");
 
         } catch (mysqli_sql_exception $ex){
             $errorMessage = $ex;
         }
     }
-
 ?><!doctype html>
 <html lang="en">
 <head>
