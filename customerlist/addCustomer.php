@@ -37,17 +37,17 @@
                 if (md5($txtPassword . $memberKey) == $hashedPassword) {
                     // password matched!
                     $_SESSION["memberID"] = $row["memberID"];
-                    $_SESSION["CustomerID"] = $row["CustomerID"];
+                    $_SESSION["Email"] = $row["Email"];
 
-                    if ($row['CustomerID'] == 3) {
+                    if ($row['Email'] == 3) {
                         header("location: index.php");
 
-                    }else if ($row ['CustomerID'] == 1) {
+                    }else if ($row ['Email'] == 1) {
                         header("location: index.php");
                     }
 
                 } else {
-                    $errorMessage = "Password was incorrect";
+                    $errorMessage = "";
                 }
             }
         } catch (mysqli_sql_exception $ex){

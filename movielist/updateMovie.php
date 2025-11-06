@@ -38,7 +38,7 @@
         $txtRating = $row["MovieRating"];
 
     }else{
-        header ("Location:index.php");
+        header ("Location: index.php");
     }
 
 ?><!doctype html>
