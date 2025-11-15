@@ -217,7 +217,7 @@
                 echo form_open('http://10.7.66.21/marathon/public/create');
                 echo form_input('username', '', 'placeholder="Username"');
                 echo form_password('password', '', 'placeholder="Password"');
-                echo form_password('password2', '', 'placeholder="Retype Password"');
+                echo form_password('retypePassword', '', 'placeholder="Retype Password"');
                 echo form_input('email', '', 'placeholder="Email"');
                 echo form_submit('submit', 'Create Account');
                 echo form_close();
