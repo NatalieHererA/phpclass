@@ -9,7 +9,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Landing Page - Start Bootstrap Theme</title>
+    <title>Fox Cities 2026 Marathon</title>
+
+    <?php
+    $error_styles = "";
+
+    if (isset($load_error)){
+        $load_error = null;
+        $error_styles = "alert alert-danger";
+
+
+        echo '<script>document.location.href ="#login"</script>';
+    }
+
+
+
+    ?>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -53,6 +68,9 @@
                 </li>
                 <li>
                     <a href="#services">Services</a>
+                </li>
+                <li>
+                    <a href="#login">Login</a>
                 </li>
                 <li>
                     <a href="#contact">Contact</a>
@@ -118,7 +136,7 @@
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">About The Training</h2>
-                <p class="lead">Turn your 2D designs into high quality, 3D product shots in seconds using free Photoshop actions by <a target="_blank" href="http://www.psdcovers.com/">PSDCovers</a>! Visit their website to download some of their awesome, free photoshop actions!</p>
+                <p class="lead">Come be part of the greatest athletes in the Fox Valley with <a target="_blank" href="http://www.psdcovers.com/">Appleton North High School</a>! Visit their website to sign up for updates of the upcoming events!</p>
             </div>
             <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                 <img class="img-responsive" src="img/start.jpg" alt="">
@@ -152,6 +170,63 @@
 
 </div>
 <!-- /.content-section-a -->
+
+<a name="login"></a>
+<div class="content-section-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 <?=$error_styles;?>">
+                <?php
+
+                $validation = service('validation');
+                if ($validation->hasError('username')){
+                    echo $validation->getError('username');
+                }
+                else if ($validation->hasError('password')){
+                    echo $validation->getError('password');
+                }
+                else if ($validation->hasError('password2')){
+                    echo $validation->hasError('password2');
+                }
+                else if (isset($error_message)) {
+                    echo $error_message;
+                }
+
+                ?>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Login</h2>
+                <?php
+                echo form_open('http://10.7.66.21/marathon/public/login');
+                echo form_input('username', '', 'placeholder="Username"');
+                echo form_password('password', '', 'placeholder="Password"');
+                echo form_submit('submit', 'Login');
+                echo form_close();
+                ?>
+            </div>
+            <div class="col-sm-6">
+                <h2>Create Account</h2>
+                <?php
+                echo form_open('http://10.7.66.21/marathon/public/create');
+                echo form_input('username', '', 'placeholder="Username"');
+                echo form_password('password', '', 'placeholder="Password"');
+                echo form_password('password2', '', 'placeholder="Retype Password"');
+                echo form_input('email', '', 'placeholder="Email"');
+                echo form_submit('submit', 'Create Account');
+                echo form_close();
+                ?>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.content-section-b -->
 
 <a  name="contact"></a>
 <div class="banner">

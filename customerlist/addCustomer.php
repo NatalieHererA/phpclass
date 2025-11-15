@@ -6,7 +6,7 @@
 
     $formSubmitted = isset($_POST["hidden"]);
 
-    if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"]) && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) && !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"]) && !empty($_POST["txtMemberKey"])) {
+    if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"]) && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) && !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"])) {
 
         $txtFirstName = $_POST["txtFirstName"];
         $txtLastName = $_POST["txtLastName"];
@@ -23,33 +23,15 @@
             include "../includes/db.php";
             $con = getDBConnection();
 
+            $hashedPassword = md5($txtPassword . $memberKey);
+
             $query = "INSERT INTO customerlist (FirstName, LastName, Address, City, State, Zip, Phone, Email, Password, memberKey) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "ssssssssss", $txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $memberKey);
+            mysqli_stmt_bind_param($stmt, "ssssssssss", $txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $hashedPassword, $memberKey);
             mysqli_stmt_execute($stmt);
 
             header("Location:index.php");
 
-            if ($row != null) {
-                $hashedPassword = $row["memberPassword"];
-                $memberKey = $row["memberKey"];
-
-                if (md5($txtPassword . $memberKey) == $hashedPassword) {
-                    // password matched!
-                    $_SESSION["memberID"] = $row["memberID"];
-                    $_SESSION["Email"] = $row["Email"];
-
-                    if ($row['Email'] == 3) {
-                        header("location: index.php");
-
-                    }else if ($row ['Email'] == 1) {
-                        header("location: index.php");
-                    }
-
-                } else {
-                    $errorMessage = "";
-                }
-            }
         } catch (mysqli_sql_exception $ex){
             $errorMessage = $ex;
         }

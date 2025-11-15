@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    $ADMIN_ID = 3;
-    if (isset($_SESSION['userID']) || $_SESSION['roleID'] != $ADMIN_ID) {
-        header( "location: /login.php");
+    $MEMBER_ID = 1;
+    if (!isset($_SESSION['userID']) || $_SESSION['roleID'] != $MEMBER_ID) {
+       header( "location: index.php");
     }
 
 ?><!doctype html>

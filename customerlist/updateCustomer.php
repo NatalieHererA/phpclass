@@ -1,16 +1,17 @@
 <?php
 
-    if(!empty($_GET["txtFirstName"]) && !empty($_GET["txtLastName"]) && !empty($_GET["txtAddress"]) && !empty($_GET["txtCity"]) && !empty($_GET["txtState"]) && !empty($_GET["txtZip"]) && !empty($_GET["txtPhone"]) && !empty($_GET["txtEmail"]) && !empty($_GET["txtPassword"])){
+    if(!empty($_POST["txtFirstName"]) && !empty($_POST["txtLastName"]) && !empty($_POST["txtAddress"]) && !empty($_POST["txtCity"]) && !empty($_POST["txtState"]) && !empty($_POST["txtZip"]) && !empty($_POST["txtPhone"]) && !empty($_POST["txtEmail"]) && !empty($_POST["txtPassword"])){
 
-        $txtFirstName = $_GET["txtFirstName"];
-        $txtLastName = $_GET["txtLastName"];
-        $txtAddress = $_GET["txtAddress"];
-        $txtCity = $_GET["txtCity"];
-        $txtState = $_GET["txtState"];
-        $txtZip = $_GET["txtZip"];
-        $txtPhone = $_GET["txtPhone"];
-        $txtEmail = $_GET["txtEmail"];
-        $txtPassword = $_GET["txtPassword"];
+        $CustomerID = $_GET["id"];
+        $txtFirstName = $_POST["txtFirstName"];
+        $txtLastName = $_POST["txtLastName"];
+        $txtAddress = $_POST["txtAddress"];
+        $txtCity = $_POST["txtCity"];
+        $txtState = $_POST["txtState"];
+        $txtZip = $_POST["txtZip"];
+        $txtPhone = $_POST["txtPhone"];
+        $txtEmail = $_POST["txtEmail"];
+        $txtPassword = $_POST["txtPassword"];
 
         try {
             include "../includes/db.php";
@@ -18,7 +19,7 @@
 
             $query = "update customerlist set FirstName = ?, LastName = ?, Address = ?, City = ?, State = ?, Zip = ?, Phone = ?, Email = ?, Password = ? where CustomerID = ?";
             $stmt = mysqli_prepare($con, $query);
-            mysqli_stmt_bind_param($stmt, "sssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword);
+            mysqli_stmt_bind_param($stmt, "ssssssssss",$txtFirstName, $txtLastName, $txtAddress, $txtCity, $txtState, $txtZip, $txtPhone, $txtEmail, $txtPassword, $CustomerID);
             mysqli_stmt_execute($stmt);
 
             header("Location: index.php");
