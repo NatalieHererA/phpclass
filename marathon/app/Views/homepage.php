@@ -186,7 +186,10 @@
                     echo $validation->getError('password');
                 }
                 else if ($validation->hasError('password2')){
-                    echo $validation->hasError('password2');
+                    echo $validation->getError('password2');
+                }
+                else if ($validation->hasError('email')){
+                    echo $validation->getError('email');
                 }
                 else if (isset($error_message)) {
                     echo $error_message;
