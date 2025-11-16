@@ -25,11 +25,9 @@ class Member extends Model
 
     public function create_user($username, $email, $password, $retypePassword){
             $db = db_connect();
-            $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberKey ) VALUES (?,?,?,?)";
+            $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberRetypePassword, memberKey ) VALUES (?,?,?,?,?s)";
             $result = $db->query($query, [$username, $email, $password, $retypePassword, $memberKey ]);
             $row = $result->getFirstRow();
-
-            if ($row==null) return false;
 
             $dbPassword = $row->memberPassword;
             $dbMemberKey = $row->memberKey;
@@ -38,6 +36,7 @@ class Member extends Model
             if ($dbPassword != $hashedPassword) return false;
 
             return true;
+
 
 
     }
