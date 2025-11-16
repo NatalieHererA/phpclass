@@ -23,10 +23,10 @@ class Member extends Model
             return true;
     }
 
-    public function create_user($username, $email, $password, $retypePassword){
+    public function create_user($username, $email, $hashedPassword, $retypePassword){
             $db = db_connect();
             $query = "INSERT INTO members (memberName, memberEmail, memberPassword, memberRetypePassword, memberKey ) VALUES (?,?,?,?,?s)";
-            $result = $db->query($query, [$username, $email, $password, $retypePassword, $memberKey ]);
+            $result = $db->query($query, [$username, $email, $hashedPassword, $retypePassword, $memberKey ]);
             $row = $result->getFirstRow();
 
             $dbPassword = $row->memberPassword;
