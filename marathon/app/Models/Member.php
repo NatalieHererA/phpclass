@@ -34,10 +34,9 @@ class Member extends Model
             $hashedPassword = md5($dbpassword . $dbMemberKey);
 
             if ($dbPassword != $hashedPassword) return false;
+            if ($hashedPassword != $retypePassword) return false;
 
             return true;
-
-
 
     }
 
