@@ -185,8 +185,8 @@
                 else if ($validation->hasError('password')){
                     echo $validation->getError('password');
                 }
-                else if ($validation->hasError('password2')){
-                    echo $validation->getError('password2');
+                else if ($validation->hasError('retypePassword')){
+                    echo $validation->getError('retypePassword');
                 }
                 else if ($validation->hasError('email')){
                     echo $validation->getError('email');
