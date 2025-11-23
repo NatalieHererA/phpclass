@@ -181,24 +181,34 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Select Your City</label>
+                            <label>Select Country</label>
                             <select class="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option>Algeria</option>
+                                <option>Brazil</option>
+                                <option>Canada</option>
+                                <option>China</option>
+                                <option>Denmark</option>
+                                <option>France</option>
+                                <option>Mexico</option>
+                                <option>Russia</option>
+                                <option>United Kingdom</option>
+                                <option>United States</option>
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label>Multiple Selects</label>
+                            <label>Select</label>
                             <select multiple class="form-control">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
                                 <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
                             </select>
                         </div>
 
@@ -266,22 +276,22 @@
 
                         <div class="form-group input-group">
                             <span class="input-group-addon">@</span>
-                            <input type="text" class="form-control" placeholder="Username">
+                            <input type="text" class="form-control" placeholder="Email">
                         </div>
 
                         <div class="form-group input-group">
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" placeholder="Username">
                             <span class="input-group-addon">.00</span>
                         </div>
 
                         <div class="form-group input-group">
                             <span class="input-group-addon"><i class="fa fa-eur"></i></span>
-                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
+                            <input type="text" class="form-control" placeholder="Password">
                         </div>
 
                         <div class="form-group input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" placeholder="Retype Password">
                             <span class="input-group-addon">.00</span>
                         </div>
 
