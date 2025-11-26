@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Race;
+
 class Admin extends BaseController
 {
 
@@ -11,9 +13,13 @@ class Admin extends BaseController
         return view('admin_page', $data);
     }
 
+
+    //Navigation
     public function manage_marathon(): string
     {
+        $Race = new Race();
         $data = ['manage_marathon' => 'true'];
+        $data['races'] = $Race->get_races();
         return view('marathon_page', $data);
     }
 
@@ -33,5 +39,14 @@ class Admin extends BaseController
     {
         $data = ['registration_form' => 'true'];
         return view('registration_page', $data);
+    }
+
+    public function add_race()
+    {
+        $Race = new Race();
+        $Race->add_race($this->request->getPost('race_name'), $this->request->getPost('race_location'), $this->request->getPost('race_description'), $this->request->getPost('race_date'), );
+        header("Location: marathon");
+        exit();
+
     }
 }

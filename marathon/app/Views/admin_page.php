@@ -5,7 +5,6 @@ $this->session->start();
 $roleID = $this->session->get('roleID');
 if ( $roleID != 3){
     header('location /marathon/public#login');
-    exit();
 }
 
 ?><!DOCTYPE html>
