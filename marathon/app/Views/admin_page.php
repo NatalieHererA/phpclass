@@ -1,13 +1,4 @@
-<?php
-$this->session = service('session');
-$this->session->start();
-
-$roleID = $this->session->get('roleID');
-if ( $roleID != 3){
-    header('location /marathon/public#login');
-}
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,7 +9,7 @@ if ( $roleID != 3){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Fox Valley 2026 Marathon - Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

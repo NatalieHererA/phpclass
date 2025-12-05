@@ -22,6 +22,7 @@
             if ($row != null) {
                 $hashedPassword = $row["memberPassword"];
                 $memberKey = $row["memberKey"];
+                var_dump($memberKey);
 
                 if (true || md5($txtPassword . $memberKey) == $hashedPassword) { // password matched!
                     $_SESSION["userID"] = $row["memberID"];

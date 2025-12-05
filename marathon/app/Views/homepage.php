@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Fox Cities 2026 Marathon</title>
+    <title>Fox Cities 2026 Marathon - Home</title>
 
     <?php
     $error_styles = "";
